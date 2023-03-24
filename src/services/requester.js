@@ -13,13 +13,19 @@ const request = async (method, url, data) =>{
 
     const response = await fetch(url, options);
     
-    try {
-        const result = await response.json();
-        return result ;
-
-    } catch (error) {
-        return {}
+    if (response.status === 204) {
+        return {};
     }
+   
+    const result = await response.json();
+
+    if (!response.ok){
+        
+        throw result;
+    }
+
+    return result ;
+
 };
 export const get = request.bind(null, 'GET');
 export const post = request.bind(null, 'POST');

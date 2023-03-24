@@ -20,7 +20,7 @@ import { Register } from "./components/Register/Register";
 function App() {
   const navigate = useNavigate();
   const [seats, setSeats] = useState([]);
-  const [auth, setUser] = useState({});
+  const [auth, setAuth] = useState({});
 
   useEffect(()=> {
     seatService.getAll()
@@ -28,6 +28,7 @@ function App() {
         setSeats(result);
       })
   }, []);
+
   const onCreateSeatSubmit = async (data) =>{
     const newSeat = await seatService.create(data);
 
@@ -38,12 +39,33 @@ function App() {
     navigate('/catalogue')
   }
   const onLoginSubmit = async (data) =>{
+    try{
+      //result from server
+      const result = await authService.login(data);
+      
+      //set to state
+      setAuth(result)
+
+      navigate('/catalogue')
+    }catch(error){
+      //to do show on screen
+      console.log('There is something wrong')
+    }
     
-    const result = await authService.login(data);
-    console.log (result)
-  }
+  };
+
+  const context = {
+    onLoginSubmit,
+    userId : auth._id,
+    token: auth.accessToken,
+    userEmail: auth.email,
+    //double-negation turns Truthy to Falsy then again to Truthy
+    isAuthenticated: !!auth.accessToken,
+  
+  };
+
   return (
-    <AuthContext.Provider value={{onLoginSubmit}}>
+    <AuthContext.Provider value={context}>
       <div id="box">
         <Header />
         <main id="main-content">

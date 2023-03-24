@@ -25,7 +25,7 @@ export const Catalogue = ({seats}) =>{
             {seats.length === 0 &&(
                 <div className="no-seats">
                 <img src="https://www.shutterstock.com/image-photo/wooden-cubes-inscription-unlucky-lucky-260nw-2136158797.jpg" alt="no luck" />
-                <p className="lead">Try next time...</p>
+                <p className="lead" style={{color:"pink"}}>Try next time...</p>
             </div>
             )}
             
