@@ -13,7 +13,9 @@ import { Header } from "./components/Header/Header";
 
 import { Home } from "./components/Home/Home";
 import { Login } from "./components/Login/Login";
+import { Logout } from './components/Logout/Logout';
 import { Register } from "./components/Register/Register";
+
 
 
 
@@ -54,8 +56,38 @@ function App() {
     
   };
 
+  const onRegisterSubmit = async(values) =>{
+    const{ rePassword, ...registerData} = values;
+    if (rePassword !== registerData.password){
+      return
+    }
+    try{
+      //result from server
+      const result = await authService.register(registerData);
+      
+      //set to state
+      setAuth(result);
+
+      navigate('/catalogue')
+    }catch(error){
+      //to do show on screen
+      console.log('There is something wrong')
+    }
+  };
+
+  const onLogout = async () => {
+    // from server
+    // TODO: authorized request
+    // await authService.logout();
+
+    //zero obj from client
+  setAuth({});
+  };
+
   const context = {
+    onRegisterSubmit,
     onLoginSubmit,
+    onLogout,
     userId : auth._id,
     token: auth.accessToken,
     userEmail: auth.email,
@@ -72,6 +104,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/login' element={<Login />} />
+            <Route path='/logout' element={<Logout/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/offer-seat' element={<OfferSeat onCreateSeatSubmit={onCreateSeatSubmit}/>} />
             <Route path='/catalogue' element={<Catalogue seats={seats}/>} />

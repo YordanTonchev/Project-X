@@ -13,8 +13,17 @@ export const Details = () =>{
                 setTrip(result)
             });
     }, [tripId]);
+    const styles = {
+        backgroundImage: 'url("https://cdn-prod.medicalnewstoday.com/content/images/articles/327/327330/a-kid-who-is-not-allowed-to-sit-in-the-front-seat-because-she-is-too-young.jpg")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        minHeight: '100vh',
+        margintop: '50px',
+        border: '2px black solid'
+    };
     return(
-        <section className="py-5 details" id="trip-details-page">
+        <section className="py-5 details" id="trip-details-page" style={styles}>
             <div className="container">
                 <div className="destination">
                     <div>

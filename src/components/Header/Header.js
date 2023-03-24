@@ -16,20 +16,21 @@ export const Header = () => {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{display: "flex"}}>
                         {/* <!-- Guest users and Logged users --> */}
                         
-                        <li className="nav-item" style={{backgroundColor:"yellow", borderRadius:'20px', color:'pink'}}>
+                        <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px'}}>
                         <Link className="nav-link" to="/catalogue">Catalogue</Link>
                         </li>
 
                         {/* <!-- Logged users --> */}
                         {isAuthenticated &&(
-                            <div style={{display: "flex", backgroundColor:'pink', alignItems:"center"}}>
-                                <span>{userEmail}</span>
-                                <li className="nav-item" style={{borderRadius:'20px'}}>
+                            <div style={{display: "flex", alignItems:"center"}}>
+                                <span style={{marginRight:"20px", marginLeft:"20px"}}>{userEmail}</span>
+
+                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px', marginRight:"20px"}}>
                                 <Link className="nav-link" to="/offer-seat">Offer seat</Link>
                                 </li>
                                 
-                                <li className="nav-item" style={{borderRadius:'20px'}}>
-                                <Link className="nav-link" to="/catalogue">Logout</Link>
+                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px'}}>
+                                <Link className="nav-link" to="/logout">Logout</Link>
                                 </li>
                                 
                             </div>
@@ -38,10 +39,10 @@ export const Header = () => {
                         {/* <!-- Guest users --> */}
                         {!isAuthenticated &&(
                             <div style={{display: "flex", marginLeft:"20px"}}>
-                                <li className="nav-item" style={{border:'2px solid black',borderRadius:'20px', backgroundColor:'green', marginRight:"20px"}}>
+                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px', marginRight:"20px"}}>
                                 <Link className="nav-link" to="/login">Login</Link>
                                 </li>
-                                <li className="nav-item" style={{borderRadius:'20px'}}>
+                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px'}}>
                                 <Link className="nav-link" to="/register">Register</Link>
                                 </li> 
                             </div>

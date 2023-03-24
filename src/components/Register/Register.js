@@ -1,37 +1,52 @@
 import { Link } from "react-router-dom";
+
+import { useContext } from "react";
+
+import { useForm } from "../../hooks/useForm";
+import { AuthContext } from "../../contexts/AuthContext";
+
 export const Register = () =>{
+    const {onRegisterSubmit} = useContext(AuthContext);
+    const {values, changeHandler, onSubmit} = useForm({
+        email: '',
+        password:'',
+        rePassword: '',
+    }, onRegisterSubmit);
+    const styles = {
+        backgroundImage: 'url("https://www.evanshalshaw.com/-/media/evanshalshaw/blog/used-cars-that-can-fit-3-child-seats-in-the-back/volkswagen-touran-family-trip-1920x774px.ashx")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        minHeight: '100vh',
+        margintop: '50px',
+        border: '2px black solid'
+    };
+
     return(
-        <section className="py-5" id="register-page">
-            <div className="container register-page">
-                <h1>Register</h1>
+        <section className="py-5" id="register-page" style={styles}>
+            <div className="container register-page" style={{marginLeft: '140px'}}>
+                <h1 style={{color:'white'}}>Register</h1>
                 <div className="register">
-                    <form action="" method="">
+                    <form action="" method="post" onSubmit={onSubmit} style={{width:'25%'}}>
                         <div className="form-group">
-                            <label for="email">Email address</label>
-                            <input type="text" className="form-control" id="email" placeholder="Enter email" name=""
-                                value="" />
+                            <label htmlFor="email" style={{color:'white'}}>Email address</label>
+                            <input type="text" className="form-control" id="email" placeholder="Enter email" name="email"
+                                value={values.emial} onChange={changeHandler}/>
                         </div>
                         <div className="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" className="form-control" id="password" placeholder="Password" name=""
-                                value="" />
+                            <label htmlFor="password" style={{color:'white'}}>Password</label>
+                            <input type="password" className="form-control" id="password" placeholder="Password" name="password"
+                                value={values.password} onChange={changeHandler}/>
                         </div>
                         <div className="form-group">
-                            <label for="rePassword">Re-Password</label>
+                            <label htmlFor="rePassword" style={{color:'white'}}>Re-Password</label>
                             <input type="password" className="form-control" id="rePassword" placeholder="Re-Password"
-                                name="" value="" />
-                        </div>
-                        <label>Gender</label>
-                        <div className="gender">
-                            <input type="radio" id="female" name="" value="" />
-                            <label for="female">Female</label>
-                            <input type="radio" id="male" name="" value="" checked />
-                            <label for="male">Male</label>
+                                name="rePassword" value={values.rePassword} onChange={changeHandler} />
                         </div>
                         <div className="form-group">
-                            <p>Already have account? <Link to="/Login">Login Now!</Link></p>
+                            <p style={{color:'white'}}>Already have account? <Link to="/Login" style={{color:'white'}}>Login Now!</Link></p>
                         </div>
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary" style={{backgroundColor:'orange'}}>Submit</button>
                     </form>
                 </div>
             </div>
