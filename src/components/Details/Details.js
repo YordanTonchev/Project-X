@@ -1,18 +1,24 @@
-//take trip id
-import { useParams } from "react-router-dom";
+//take seat id
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import * as tripService from '../../services/seatService';
+
+import {seatServiceFactory} from '../../services/seatService';
+import { useService } from "../../hooks/useService";
+
 export const Details = () =>{
-    const {tripId} = useParams();
-    const [trip, setTrip] = useState({});
+    const [username, setUsername] = useState('');
+    const [comment, setComment] = useState('');
+    const {seatId} = useParams();
+    const [seat, setSeat] = useState({});
+    const seatService = useService(seatServiceFactory)
 
     useEffect(() => {
-        tripService.getOne(tripId)
+        seatService.getOne(seatId)
             .then(result => {
-                setTrip(result)
+                setSeat(result)
             });
-    }, [tripId]);
+    }, [seatId]);
     const styles = {
         backgroundImage: 'url("https://cdn-prod.medicalnewstoday.com/content/images/articles/327/327330/a-kid-who-is-not-allowed-to-sit-in-the-front-seat-because-she-is-too-young.jpg")',
         backgroundSize: 'cover',
@@ -23,24 +29,24 @@ export const Details = () =>{
         border: '2px black solid'
     };
     return(
-        <section className="py-5 details" id="trip-details-page" style={styles}>
+        <section className="py-5 details" id="seat-details-page" style={styles}>
             <div className="container">
                 <div className="destination">
                     <div>
                         <span className="icon"><i className="fas fa-map-marked-alt"></i></span>
-                        <h5> from {trip.startPoint} to {trip.endPoint} </h5>
+                        <h5> from {seat.startPoint} to {seat.endPoint} </h5>
                     </div>
                     <div>
                         <span className="icon"><i className="fas fa-calendar-alt"></i></span>
-                        <h5> {trip.date} at {trip.time} </h5>
+                        <h5> {seat.date} at {seat.time} </h5>
                     </div>
                 </div>
                 <p className="line"></p>
                 <div className="buddies-info">
                     <i className="fas fa-users buddies"></i>
-                    <h5>Shared trip Buddies</h5>
+                    <h5>Shared seat Buddies</h5>
                     <div>
-                        {/* <!-- if there are joined buddies for the current trip separate them with comma and space", " --> */}
+                        {/* <!-- if there are joined buddies for the current seat separate them with comma and space", " --> */}
                         <p>peter@abv.bg, marry@abv.bg</p>
 
                         {/* <!-- If not display: --> */}
@@ -49,29 +55,29 @@ export const Details = () =>{
                     <h5>Driver: <span>mihail_valkov@mail.bg</span> </h5>
                 </div>
                 <p className="line"></p>
-                <h5 className="brand">Car Brand: {trip.carBrand}</h5>
-                <div className="trip-info">
+                <h5 className="brand">Car Brand: {seat.carBrand}</h5>
+                <div className="seat-info">
                     <div>
                         <img className="img-fluid rounded"
-                            src={trip.carImage}
+                            src={seat.carImage}
                             alt="" />
                     </div>
-                    <div className="trip-desc">
-                        <h5>Information about the trip</h5>
+                    <div className="seat-desc">
+                        <h5>Information about the seat</h5>
                         <textarea className="lead"
                             disabled>Wishing you a safe journey and a relaxing vacation when you arrive!</textarea>
-                        <h5>Price: {trip.price} BGN</h5>
+                        <h5>Price: {seat.price} BGN</h5>
 
                         {/* <!-- if there are no logged in user do not show div with class actions  --> */}
                         <div className="actions">
-                            {/* <!-- Only for logged user and creator to this trip --> */}
-                            <a href="/Delete" className="btn btn-danger">Delete this trip</a>
-                            <a href="/Edit" className="btn btn-warning">Edit this trip</a>
+                            {/* <!-- Only for logged user and creator to this seat --> */}
+                            <a href="/Delete" className="btn btn-danger">Delete this seat</a>
+                            <a href="/Edit" className="btn btn-warning">Edit this seat</a>
 
                             {/* <!-- logged in user with available seats --> */}
                             <a href="/Join" className="btn btn-join">Join now, [ 1 ] seats left!</a>
 
-                            {/* <!-- logged in user and has already joined the trip  --> */}
+                            {/* <!-- logged in user and has already joined the seat  --> */}
                             <span className="btn btn-info">Already joined. Don't be late!</span>
 
                             {/* <!-- logged in user with no available seats --> */}

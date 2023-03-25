@@ -1,22 +1,39 @@
-import * as request from "./requester";
+import {requestFactory} from "./requester";
 
-const baseUrl = 'http://localhost:3030/jsonstore/seats'
+const baseUrl = 'http://localhost:3030/data/seats'
 
-export const getAll = async () => {
-    const result = await request.get(baseUrl)
-    const seats = Object.values(result)
 
-    return seats;
-};
+export const seatServiceFactory = (token) => {
+    const request = requestFactory(token);
 
-export const getOne = async (seatId) => {
-    const result = await request.get(`${baseUrl}/${seatId}`);
-    console.log(result)
-    return result
-}
-
-export const create = async (seatData) => {
-    const result = await request.post(baseUrl, seatData);
-    console.log (result);
-    return result;
+    const getAll = async () => {
+        const result = await request.get(baseUrl)
+        const seats = Object.values(result)
+    
+        return seats;
+    };
+    
+    const getOne = async (seatId) => {
+        const result = await request.get(`${baseUrl}/${seatId}`);
+        // console.log(result)
+        return result
+    }
+    
+    const create = async (seatData) => {
+        const result = await request.post(baseUrl, seatData);
+        // console.log (result);
+        return result;
+    };
+    
+    const addComment = async (seatId, data) =>{
+        const result = await request.post(`${baseUrl}/${seatId}/comments`, data);
+        return result;
+    };
+    
+    return{
+        getAll,
+        getOne,
+        create,
+        addComment,
+    }
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
-import * as seatService from './services/seatService'
+import {seatServiceFactory} from './services/seatService'
+import {authServiceFactory} from './services/authService';
 import { AuthContext } from './contexts/AuthContext';
-import * as authService from './services/authService';
+// import { useService } from './hooks/useService';
 
 import { Catalogue } from "./components/Catalogue/Catalogue";
 import { OfferSeat } from "./components/OfferSeat/OfferSeat";
@@ -16,18 +17,17 @@ import { Login } from "./components/Login/Login";
 import { Logout } from './components/Logout/Logout';
 import { Register } from "./components/Register/Register";
 
-
-
-
 function App() {
   const navigate = useNavigate();
   const [seats, setSeats] = useState([]);
   const [auth, setAuth] = useState({});
+  const seatService = seatServiceFactory(auth.accessToken);
+  const authService = authServiceFactory(auth.accessToken)
 
-  useEffect(()=> {
+  useEffect(() => {
     seatService.getAll()
       .then(result => {
-        setSeats(result);
+        setSeats(result)
       })
   }, []);
 
@@ -40,6 +40,7 @@ function App() {
     //redirect to catalogue
     navigate('/catalogue')
   }
+
   const onLoginSubmit = async (data) =>{
     try{
       //result from server
@@ -78,10 +79,10 @@ function App() {
   const onLogout = async () => {
     // from server
     // TODO: authorized request
-    // await authService.logout();
+    await authService.logout();
 
     //zero obj from client
-  setAuth({});
+    setAuth({});
   };
 
   const context = {
