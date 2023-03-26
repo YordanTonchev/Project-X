@@ -29,11 +29,17 @@ export const seatServiceFactory = (token) => {
         const result = await request.post(`${baseUrl}/${seatId}/comments`, data);
         return result;
     };
+
+    const edit = (seatId, data) => request.put(`${baseUrl}/${seatId}`, data);
+    const deleteSeat = (seatId) => request.delete(`${baseUrl}/${seatId}`);
+    
     
     return{
         getAll,
         getOne,
         create,
+        edit,
         addComment,
+        delete: deleteSeat,
     }
 }

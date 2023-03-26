@@ -16,6 +16,7 @@ import { Home } from "./components/Home/Home";
 import { Login } from "./components/Login/Login";
 import { Logout } from './components/Logout/Logout';
 import { Register } from "./components/Register/Register";
+import { Edit } from './components/Edit/Edit';
 
 function App() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ function App() {
         setSeats(result)
       })
   }, []);
-
+  
   const onCreateSeatSubmit = async (data) =>{
     const newSeat = await seatService.create(data);
 
@@ -43,24 +44,24 @@ function App() {
 
   const onLoginSubmit = async (data) =>{
     try{
-      //result from server
+      //result from server with token
       const result = await authService.login(data);
       
-      //set to state
+      //store to state
       setAuth(result)
 
       navigate('/catalogue')
     }catch(error){
       //to do show on screen
-      console.log('There is something wrong')
+      console.log('There is something wrong with your email or password')
     }
     
   };
 
-  const onRegisterSubmit = async(values) =>{
+  const onRegisterSubmit = async (values) =>{
     const{ rePassword, ...registerData} = values;
     if (rePassword !== registerData.password){
-      return
+      return;
     }
     try{
       //result from server
@@ -77,17 +78,26 @@ function App() {
   };
 
   const onLogout = async () => {
+    
     // from server
     // TODO: authorized request
     await authService.logout();
 
     //zero obj from client
     setAuth({});
+    
   };
 
+  const onSeatEditSubmit = async (values) => {
+    const result = await seatService.edit(values._id, values);
+    //TODO change state
+    setSeats(state => state.map(x => x._id === values._id ? result : x))
+    navigate(`/catalogue/${values._id}`);
+  }
+
   const context = {
-    onRegisterSubmit,
     onLoginSubmit,
+    onRegisterSubmit,
     onLogout,
     userId : auth._id,
     token: auth.accessToken,
@@ -110,6 +120,7 @@ function App() {
             <Route path='/offer-seat' element={<OfferSeat onCreateSeatSubmit={onCreateSeatSubmit}/>} />
             <Route path='/catalogue' element={<Catalogue seats={seats}/>} />
             <Route path='/catalogue/:seatId' element={<Details />} />
+            <Route path='/catalogue/:seatId/edit' element={<Edit onSeatEditSubmit={onSeatEditSubmit} />} />
           </Routes>
         </main>
         <Footer />

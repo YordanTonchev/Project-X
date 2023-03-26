@@ -21,7 +21,7 @@ export const Header = () => {
                         </li>
 
                         {/* <!-- Logged users --> */}
-                        {isAuthenticated &&(
+                        {isAuthenticated && (
                             <div style={{display: "flex", alignItems:"center"}}>
                                 <span style={{marginRight:"20px", marginLeft:"20px"}}>{userEmail}</span>
 

@@ -12,12 +12,12 @@ export const Catalogue = ({seats}) =>{
       };
     return(
         <section className="container" id="catalogue-page" style={styles} >
-        <header className="seat">
-            <h1 style={{color: 'pink'}}>Welcome lovely parents!</h1>
-            <p style={{color: 'pink'}}>Child seats are the best way to protect your loved ones.</p>
-            <p style={{color: 'pink'}}>Find your child seat that suits the most, and let the endless journeys begin!</p>
-        </header>
-        <div className="row text-center">
+            <header className="seat">
+                <h1 style={{color: 'pink'}}>Welcome lovely parents!</h1>
+                <p style={{color: 'pink'}}>Child seats are the best way to protect your loved ones.</p>
+                <p style={{color: 'pink'}}>Find your child seat that suits the most, and let the endless journeys begin!</p>
+            </header>
+            <div className="row text-center">
            
 
             {seats.map(x => <CatalogueItem key={x._id} {...x} />)}
@@ -30,7 +30,7 @@ export const Catalogue = ({seats}) =>{
             )}
             
 
-        </div>
-    </section>
+            </div>
+        </section>
     );
 };

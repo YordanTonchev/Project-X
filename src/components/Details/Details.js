@@ -1,17 +1,20 @@
-//take seat id
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 
 import {seatServiceFactory} from '../../services/seatService';
 import { useService } from "../../hooks/useService";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const Details = () =>{
+    const {userId} = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
     const {seatId} = useParams();
     const [seat, setSeat] = useState({});
-    const seatService = useService(seatServiceFactory)
+    const seatService = useService(seatServiceFactory);
+    const navigate = useNavigate();
 
     useEffect(() => {
         seatService.getOne(seatId)
@@ -19,6 +22,24 @@ export const Details = () =>{
                 setSeat(result)
             });
     }, [seatId]);
+
+    const onCommentSubmit = async (e) => {
+        e.preventDefault ();
+
+        const result = await seatService.addComment(seatId, {
+            username,
+            comment
+        });
+        setSeat(state => ({...state, comments: {...state.comments, [result._id]: result} }));
+        setUsername('');
+        setComment('');
+    }
+
+    const onDeleteClick = async () => {
+        await seatService.delete(seat._id);
+        //TODO delete from state
+        navigate('/catalogue')
+    };
     const styles = {
         backgroundImage: 'url("https://cdn-prod.medicalnewstoday.com/content/images/articles/327/327330/a-kid-who-is-not-allowed-to-sit-in-the-front-seat-because-she-is-too-young.jpg")',
         backgroundSize: 'cover',
@@ -30,60 +51,29 @@ export const Details = () =>{
     };
     return(
         <section className="py-5 details" id="seat-details-page" style={styles}>
-            <div className="container">
-                <div className="destination">
+            <div className="container" style={{marginLeft:'300px', width:'25%'}}> 
+                
+                <h5 className="brand" style={{color:'white'}}>Seat Brand: {seat.brand}</h5>
+                
+                <div className="seat-info" >
                     <div>
-                        <span className="icon"><i className="fas fa-map-marked-alt"></i></span>
-                        <h5> from {seat.startPoint} to {seat.endPoint} </h5>
+                        <img className="img-fluid rounded" src={seat.image} alt="" />
                     </div>
-                    <div>
-                        <span className="icon"><i className="fas fa-calendar-alt"></i></span>
-                        <h5> {seat.date} at {seat.time} </h5>
-                    </div>
-                </div>
-                <p className="line"></p>
-                <div className="buddies-info">
-                    <i className="fas fa-users buddies"></i>
-                    <h5>Shared seat Buddies</h5>
-                    <div>
-                        {/* <!-- if there are joined buddies for the current seat separate them with comma and space", " --> */}
-                        <p>peter@abv.bg, marry@abv.bg</p>
-
-                        {/* <!-- If not display: --> */}
-                        <p>there are no buddies yet...</p>
-                    </div>
-                    <h5>Driver: <span>mihail_valkov@mail.bg</span> </h5>
-                </div>
-                <p className="line"></p>
-                <h5 className="brand">Car Brand: {seat.carBrand}</h5>
-                <div className="seat-info">
-                    <div>
-                        <img className="img-fluid rounded"
-                            src={seat.carImage}
-                            alt="" />
-                    </div>
-                    <div className="seat-desc">
-                        <h5>Information about the seat</h5>
+                    <div className="seat-desc" >
+                        <h5 style={{color:'white'}}>Information about the seat</h5>
+                        
                         <textarea className="lead"
-                            disabled>Wishing you a safe journey and a relaxing vacation when you arrive!</textarea>
-                        <h5>Price: {seat.price} BGN</h5>
+                            disabled value={seat.description} >Wishing you a safe journey and a relaxing vacation when you arrive!</textarea> 
+                        <h5 style={{color:'white'}}>Price: {seat.price} BGN</h5>
 
                         {/* <!-- if there are no logged in user do not show div with class actions  --> */}
-                        <div className="actions">
+                        {seat._ownerId === userId && (
+                            <div className="actions">
                             {/* <!-- Only for logged user and creator to this seat --> */}
-                            <a href="/Delete" className="btn btn-danger">Delete this seat</a>
-                            <a href="/Edit" className="btn btn-warning">Edit this seat</a>
-
-                            {/* <!-- logged in user with available seats --> */}
-                            <a href="/Join" className="btn btn-join">Join now, [ 1 ] seats left!</a>
-
-                            {/* <!-- logged in user and has already joined the seat  --> */}
-                            <span className="btn btn-info">Already joined. Don't be late!</span>
-
-                            {/* <!-- logged in user with no available seats --> */}
-                            <span className="btn btn-secondary">No seats available! [0]</span>
-                        </div>
-
+                            <button className="btn btn-danger" onClick={onDeleteClick}>Delete this seat</button>
+                            <Link to={`/catalogue/${seat._id}/edit`} className="btn btn-warning">Edit this seat</Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

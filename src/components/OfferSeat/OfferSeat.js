@@ -17,7 +17,7 @@ export const OfferSeat = ({onCreateSeatSubmit,}) =>{
         price: '',
         stock: '',
         description: '',
-    }, onCreateSeatSubmit)
+    }, onCreateSeatSubmit);
     
 
     return(
@@ -27,36 +27,36 @@ export const OfferSeat = ({onCreateSeatSubmit,}) =>{
         <div className="container offer-seat" style={{textAlign:'center', color:'orange'}}>
             <h1>Offer seat</h1>
         </div>
-        <div class="form-group">
+        <div className="form-group">
 
-            <label htmlfor="brand"style={{color:'orange'}}>Seat Brand</label>
-            <input type="text" class="form-control" id="brand"  placeholder="Cybex" name="brand"
+            <label htmlFor="brand"style={{color:'orange'}}>Seat Brand</label>
+            <input type="text" className="form-control" id="brand"  placeholder="Cybex" name="brand"
              value={values.brand} onChange={changeHandler}/>
             
         </div>
-        <div class="form-group">
-            <label htmlfor="image"style={{color:'orange'}}>Seat Image</label>
-            <input type="text" class="form-control" id="image"  placeholder="https://..." name="image"
+        <div className="form-group">
+            <label htmlFor="image"style={{color:'orange'}}>Seat Image</label>
+            <input type="text" className="form-control" id="image"  placeholder="https://..." name="image"
              value={values.image} onChange={changeHandler}/>
         </div>
-        <div class="form-group">
-            <label htmlfor="price" style={{color:'orange'}}>Price</label>
-            <input type="text" class="form-control" id="price"  placeholder="10 BGN" name="price"
+        <div className="form-group">
+            <label htmlFor="price" style={{color:'orange'}}>Price</label>
+            <input type="text" className="form-control" id="price"  placeholder="10 BGN" name="price"
              value={values.price} onChange={changeHandler}/>
         </div>
-        <div class="form-group">
-            <label htmlfor="stock"style={{color:'orange'}}>Stock</label>
-            <input type="text" class="form-control" id="stock"  placeholder="1" name="stock"
+        <div className="form-group">
+            <label htmlFor="stock"style={{color:'orange'}}>Stock</label>
+            <input type="text" className="form-control" id="stock"  placeholder="1" name="stock"
              value={values.stock} onChange={changeHandler}/>
         </div>
-        <div class="form-group">
-            <label htmlfor="description" style={{color:'orange'}}>Description</label>
-            <textarea class="form-control" id="description"  placeholder="Information about the seat" name="description"
+        <div className="form-group">
+            <label htmlFor="description" style={{color:'orange'}}>Description</label>
+            <textarea className="form-control" id="description"  placeholder="Information about the seat" name="description"
              value={values.description} onChange={changeHandler}></textarea>
         </div>
         
 
-        <button type="submit" class="btn btn-primary" style={{backgroundColor:'orange', marginLeft:'180px', marginTop:'10px' }}>Submit</button>
+        <button type="submit" className="btn btn-primary" style={{backgroundColor:'orange', marginLeft:'180px', marginTop:'10px' }}>Submit</button>
         </form>
     </section>
         

@@ -27,8 +27,8 @@ export const Login = () => {
         border: '2px black solid'
     };
     return(
-        <section className="py-5" id="login-page" style={styles}>
-            <form method='POST' onSubmit={onSubmit} style={{width:'18%', marginLeft:'300px', border:'2px pink solid', borderRadius:"10px", padding:"10px"}}> 
+        <section className="auth" id="login-page" style={styles}>
+            <form id='login' method='POST' onSubmit={onSubmit} style={{width:'18%', marginLeft:'300px', border:'2px pink solid', borderRadius:"10px", padding:"10px"}}> 
                 <div className="login-container">
                 <h1 style={{color:'grey', textAlign:'center'}}>Login</h1>
                 {/* <!-- Email input --> */}
@@ -46,7 +46,7 @@ export const Login = () => {
                     <input type="password" id="form2Example2" className="form-control" name={LoginFormKeys.Password} value={values[LoginFormKeys.Password]} onChange={changeHandler} />
                     
                 </div>
-                <input type="submit" className="btn btn-primary btn-block mb-4" value="Login" />
+                <input type="submit" className="btn btn-primary btn-block mb-4 submit" value="Login" />
                 <p style={{color:'plum'}}>Not a member? <Link to="/register">Register</Link></p>
                 </div>
             </form>

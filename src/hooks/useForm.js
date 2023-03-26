@@ -10,10 +10,17 @@ export const useForm = (initialValues, onSubmitHandler) => {
         e.preventDefault();
 
         onSubmitHandler(values);
-    }
+    };
+
+    const changeValues = (newValues) => {
+        // TODO: VAlidate newVAlues shape(like initialValues)
+        setValues(newValues);
+    };
+
     return {
         values, 
         changeHandler, 
         onSubmit,
+        changeValues,
     };
 }

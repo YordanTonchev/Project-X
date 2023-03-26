@@ -27,7 +27,7 @@ export const Register = () =>{
             <div className="container register-page" style={{marginLeft: '140px'}}>
                 <h1 style={{color:'white'}}>Register</h1>
                 <div className="register">
-                    <form action="" method="post" onSubmit={onSubmit} style={{width:'25%'}}>
+                    <form id="register" method="post" onSubmit={onSubmit} style={{width:'25%'}}>
                         <div className="form-group">
                             <label htmlFor="email" style={{color:'white'}}>Email address</label>
                             <input type="text" className="form-control" id="email" placeholder="Enter email" name="email"
