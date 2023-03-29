@@ -4,7 +4,7 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import {seatServiceFactory} from './services/seatService'
 import {authServiceFactory} from './services/authService';
 import { AuthContext } from './contexts/AuthContext';
-// import { useService } from './hooks/useService';
+import { useService } from './hooks/useService';
 
 import { Catalogue } from "./components/Catalogue/Catalogue";
 import { OfferSeat } from "./components/OfferSeat/OfferSeat";
@@ -36,7 +36,7 @@ function App() {
     const newSeat = await seatService.create(data);
 
     //add newSeat to state
-    setSeats(state => [...state, newSeat])
+    setSeats(state => [...state, newSeat]);
 
     //redirect to catalogue
     navigate('/catalogue')
@@ -79,6 +79,8 @@ function App() {
 
   const onLogout = async () => {
     
+    
+
     // from server
     // TODO: authorized request
     await authService.logout();
@@ -95,7 +97,7 @@ function App() {
     navigate(`/catalogue/${values._id}`);
   }
 
-  const context = {
+  const contextValues = {
     onLoginSubmit,
     onRegisterSubmit,
     onLogout,
@@ -108,7 +110,7 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={context}>
+    <AuthContext.Provider value={contextValues}>
       <div id="box">
         <Header />
         <main id="main-content">

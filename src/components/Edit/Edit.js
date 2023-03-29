@@ -9,7 +9,7 @@ export const Edit = ({
 }) => {
     const {seatId} = useParams();
     const seatService = useService(seatServiceFactory);
-    const [values, changeHandler, onSubmit, changeValues] = useForm({
+    const {values, changeHandler, onSubmit, changeValues} = useForm({
         _id: '',
         image: '',
         brand: '',
@@ -22,7 +22,7 @@ export const Edit = ({
         seatService.getOne(seatId)
             .then(result => {
                 changeValues(result);
-            })
+            });
     }, [seatId]);
 
     return(

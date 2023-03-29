@@ -6,7 +6,6 @@ export const CatalogueItem = ({
     price,
     stock,
     description,
-   
     
 }) =>{
     return(

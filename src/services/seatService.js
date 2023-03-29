@@ -16,7 +16,7 @@ export const seatServiceFactory = (token) => {
     const getOne = async (seatId) => {
         const result = await request.get(`${baseUrl}/${seatId}`);
         // console.log(result)
-        return result
+        return result;
     }
     
     const create = async (seatData) => {

@@ -20,7 +20,7 @@ export const Catalogue = ({seats}) =>{
             <div className="row text-center">
            
 
-            {seats.map(x => <CatalogueItem key={x._id} {...x} />)}
+            {seats.map(x => <CatalogueItem key={x._id} {...x} />)} 
 
             {seats.length === 0 &&(
                 <div className="no-seats">
