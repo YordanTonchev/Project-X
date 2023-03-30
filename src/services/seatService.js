@@ -25,12 +25,8 @@ export const seatServiceFactory = (token) => {
         return result;
     };
     
-    const addComment = async (seatId, data) =>{
-        const result = await request.post(`${baseUrl}/${seatId}/comments`, data);
-        return result;
-    };
-
     const edit = (seatId, data) => request.put(`${baseUrl}/${seatId}`, data);
+    
     const deleteSeat = (seatId) => request.delete(`${baseUrl}/${seatId}`);
     
     
@@ -39,7 +35,6 @@ export const seatServiceFactory = (token) => {
         getOne,
         create,
         edit,
-        addComment,
         delete: deleteSeat,
     }
 }

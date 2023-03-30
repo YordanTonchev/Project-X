@@ -1,16 +1,20 @@
-// import * as request from './requester';
+import {requestFactory} from './requester';
 
-// const baseUrl = 'http://localhost:3030/jsonstore/comments';
+const baseUrl = 'http://localhost:3030/data/comments';
+const request = requestFactory();
 
-// export const getAll = async (seatId) => {
-//     const query = encodeURIComponent(`seatId="${seatId}"`);
-//     const result = await request.get(`${baseUrl}?where=${query}`);
-//     const comments = Object.values(result)
-//     return comments;
-// }
+export const getAll = async (seatId) => {
+    const searchQuery = encodeURIComponent(`seatId="${seatId}"`);
+    const relationQuery = encodeURIComponent(`author=_ownerId:users`)
 
-// export const create = async (data) => {
-//     const result = await request.post(baseUrl, data);
+    const result = await request.get(`${baseUrl}?where=${searchQuery}&load=${relationQuery}`);
+    const comments = Object.values(result)
     
-//     return result;
-// }
+    return comments;
+}
+
+export const create = async (seatId, comment) => {
+    const result = await request.post(baseUrl, {seatId, comment});
+    
+    return result;
+}

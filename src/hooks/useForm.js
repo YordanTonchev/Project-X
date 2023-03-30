@@ -8,8 +8,10 @@ export const useForm = (initialValues, onSubmitHandler) => {
     };
     const onSubmit = (e) => {
         e.preventDefault();
-
-        onSubmitHandler(values);
+       
+        onSubmitHandler(values);// take state and send it values
+        
+        setValues(initialValues);//zero form and it values
     };
 
     const changeValues = (newValues) => {

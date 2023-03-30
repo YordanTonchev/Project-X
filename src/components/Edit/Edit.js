@@ -24,9 +24,19 @@ export const Edit = ({
                 changeValues(result);
             });
     }, [seatId]);
+    
+    const styles = {
+        backgroundImage: 'url("https://www.aisin.com/en/aithink/assets_c/2022/07/ChildPresenceDetectionSystem%28CPD%29_top-thumb-4838x2396-7361.jpg")',
+        backgroundSize:'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        minHeight: '100vh',
+        margintop: '50px',
+        border: '2px black solid'
+      };
 
     return(
-        <section className="py-5" id="edit-page" >
+        <section className="py-5" id="edit-page" style={styles}>
         
             <form id="edit" method='post' onSubmit={onSubmit} style={{width:'30%', marginLeft:'1000px',}}>
                 <div className="container offer-seat" style={{textAlign:'center', color:'orange'}}>

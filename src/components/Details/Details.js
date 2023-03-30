@@ -1,42 +1,55 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState} from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import {seatServiceFactory} from '../../services/seatService';
-
-// import * as commentService from '../../services/commentService';
+import * as commentService from '../../services/commentService'
 import { useService } from "../../hooks/useService";
-import { AuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { useForm } from "../../hooks/useForm";
+import { AddComment } from "./AddComment/AddComment";
 
 export const Details = () =>{
-    const {userId} = useContext(AuthContext);
-
-    const [username, setUsername] = useState('');
-    const [comment, setComment] = useState('');
-//     const [comments, setComments] = useState([]);
-
     const {seatId} = useParams();
+    const {userId, isAuthenticated, userEmail} = useAuthContext();
     const [seat, setSeat] = useState({});
+    const {} = useForm({
+        comment: ''
+    })
     const seatService = useService(seatServiceFactory);
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        seatService.getOne(seatId)
-            .then(result => {
-                setSeat(result);
-            })
-    }, [seatId]);//seatService
-
-    const onCommentSubmit = async (e) => {
-        e.preventDefault ();
-
-        const result = await seatService.addComment(seatId, {
-            username,
-            comment
+        Promise.all([
+            seatService.getOne(seatId),
+            commentService.getAll(seatId)
+        ]).then(([seatData, comments]) => {
+                setSeat({
+                    ...seatData,
+                    comments,
+                });
         });
-        setSeat(state => ({...state, comments: {...state.comments, [result._id]: result} }));
-        setUsername('');
-        setComment('');
+    }, [seatId]);
+
+    const onCommentSubmit = async (values) => {
+        
+        const response = await commentService.create(seatId, values.comment);
+        
+        setSeat(state => ({
+            ...state,
+            comments:[
+                ...state.comments, 
+                {
+                    ...response,
+                    author:{
+                        userEmail,
+                    }
+                }
+            ],
+        }))
+        // setSeat(state => ({...state, comments: {...state.comments, [result._id]: result} }));
+        // setUsername('');
+        // setComment('');
     }
 
 
@@ -73,20 +86,6 @@ export const Details = () =>{
                             disabled value={seat.description} >Wishing you a safe journey and a relaxing vacation when you arrive!</textarea>
                         {/* <p>{seat.description}</p> */}
                         <h5 style={{color:'white'}}>Price: {seat.price} BGN</h5>
-                        {/* <div className="details-comments">
-                            <h2>Comments:</h2>
-                            <ul>
-                                {comments.map(x => (
-                                    <li key={x._id}>
-                                        <p>{x.username}: {x.comment}</p>
-                                    </li> 
-                                ))}    
-                            </ul>
-                            {comments.length === 0 && (
-                                <p>Sorry no comments.</p>
-                            )}
-                        </div> */}
-                        
                         {seat._ownerId === userId && (
                             <div className="actions">
                             {/* <!-- Only for logged user and creator to this seat --> */}
@@ -94,14 +93,22 @@ export const Details = () =>{
                             <Link to={`/catalogue/${seat._id}/edit`} className="btn btn-warning">Edit this seat</Link>
                             </div>
                         )}
-                        {/* <articel className='comment'>
-                            <label >New Comment:</label>
-                            <form className='from' onSubmit={onCommentSubmit}>
-                                <input type='text' name='username' placeholder="Pesho" value={username} onChange={(e) => setUsername(e.target.value)} />
-                                <textarea name='comment' placeholder="Put your comment here..." value={comment} onChange={(e) => setComment(e.target.value)} ></textarea>
-                                <input className='bnt submit' type='submit' value='Add comment' />
-                            </form>
-                        </articel> */}
+                        <div className="details-comments">
+                            <h2>Comments:</h2>
+                            <ul style={{width: '100%' ,border:'solid 2px orange', padding:'0', margin:'0' ,display:'block' ,listStyle:'none', color: 'white'}}>
+                                {seat.comments && seat.comments.map(x => (
+                                    <li key={x._id} >
+                                        <p>{x.author.email}: {x.comment}</p>
+                                    </li> 
+                                ))}    
+                            </ul>
+                            {!seat.comments?.length && (
+                                <p>Sorry no comments.</p>
+                            )}
+                        </div>
+                        
+                        
+                        {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit}/>}
                     </div>
                 </div>
             </div>
