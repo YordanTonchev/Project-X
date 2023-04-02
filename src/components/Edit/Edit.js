@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useService } from "../../hooks/useService";
 import { seatServiceFactory } from "../../services/seatService";
+import { useSeatContext } from "../../contexts/SeatContex";
 
-export const Edit = ({
-    onSeatEditSubmit,
-}) => {
+export const Edit = () => {
+    const {onSeatEditSubmit} = useSeatContext();
     const {seatId} = useParams();
     const seatService = useService(seatServiceFactory);
     const {values, changeHandler, onSubmit, changeValues} = useForm({

@@ -1,6 +1,8 @@
+import { useSeatContext } from '../../contexts/SeatContex';
 import { useForm } from '../../hooks/useForm';
 
-export const OfferSeat = ({onCreateSeatSubmit,}) =>{
+export const OfferSeat = () =>{
+    const{onCreateSeatSubmit} = useSeatContext();
     const styles = {
         backgroundImage: 'url("https://n332.es/wp-content/uploads/2021/10/Euro-NCAP-to-include-system-to-detect-of-minors.jpg")',
         backgroundSize: 'cover',

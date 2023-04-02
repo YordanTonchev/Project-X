@@ -1,6 +1,7 @@
+import { useSeatContext } from "../../contexts/SeatContex";
 import { CatalogueItem } from "./CatalogueItem/CatlogueItem";
 
-export const Catalogue = ({seats}) =>{
+export const Catalogue = () =>{
     const styles = {
         backgroundImage: 'url("https://target.scene7.com/is/image/Target/GUEST_65c4163a-8400-4a3d-a790-3a9173ba39cd?wid=668&qlt=80&fmt=webp")',
         backgroundSize: 'cover',
@@ -9,7 +10,8 @@ export const Catalogue = ({seats}) =>{
         minHeight: '100vh',
         margintop: '50px',
         
-      };
+    };
+    const{seats}=useSeatContext()
     return(
         <section className="container" id="catalogue-page" style={styles} >
             <header className="seat">

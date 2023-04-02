@@ -7,10 +7,12 @@ import { useService } from "../../hooks/useService";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { AddComment } from "./AddComment/AddComment";
+import { useSeatContext } from "../../contexts/SeatContex";
 
 export const Details = () =>{
     const {seatId} = useParams();
     const {userId, isAuthenticated, userEmail} = useAuthContext();
+    const {deleteSeat} = useSeatContext();
     const [seat, setSeat] = useState({});
     const {} = useForm({
         comment: ''
@@ -54,9 +56,15 @@ export const Details = () =>{
 
 
     const onDeleteClick = async () => {
-        await seatService.delete(seat._id);
-        //TODO delete from state
-        navigate('/catalogue')
+        //eslint-disable-next-line no-restricted-globals
+        const result = confirm(`Are you sure you want to delete ${seat.brand}`)//option
+        if(result){
+            await seatService.delete(seat._id);
+            deleteSeat(seat._id);
+
+            navigate('/catalogue');
+        }
+        
     };
     const styles = {
         backgroundImage: 'url("https://cdn-prod.medicalnewstoday.com/content/images/articles/327/327330/a-kid-who-is-not-allowed-to-sit-in-the-front-seat-because-she-is-too-young.jpg")',

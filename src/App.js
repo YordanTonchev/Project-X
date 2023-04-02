@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react';
-import {Routes, Route, useNavigate} from 'react-router-dom';
-
-import {seatServiceFactory} from './services/seatService'
+import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext';
-
+import { SeatProvider } from './contexts/SeatContex';
 
 import { Catalogue } from "./components/Catalogue/Catalogue";
 import { OfferSeat } from "./components/OfferSeat/OfferSeat";
@@ -15,57 +12,40 @@ import { Login } from "./components/Login/Login";
 import { Logout } from './components/Logout/Logout';
 import { Register } from "./components/Register/Register";
 import { Edit } from './components/Edit/Edit';
+import { RouteGuard } from './components/Common/RouteGuard';
+import { SeatOwner } from './components/Common/SeatOwner';
+
+
 
 function App() {
-  const navigate = useNavigate();
-  const [seats, setSeats] = useState([]);
-  const seatService = seatServiceFactory(); //auth.accessToken
-  
-
-  useEffect(() => {
-    seatService.getAll()
-      .then(result => {
-        setSeats(result)
-      })
-  }, []);
-  
-  const onCreateSeatSubmit = async (data) =>{
-    const newSeat = await seatService.create(data);
-
-    //add newSeat to state
-    setSeats(state => [...state, newSeat]);
-
-    //redirect to catalogue
-    navigate('/catalogue')
-  }
-  
-
-  const onSeatEditSubmit = async (values) => {
-    const result = await seatService.edit(values._id, values);
-    //TODO change state
-    setSeats(state => state.map(x => x._id === values._id ? result : x))
-    navigate(`/catalogue/${values._id}`);
-  }
-
-
   return (
     <AuthProvider>
-      <div id="box">
-        <Header />
-        <main id="main-content">
-          <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/logout' element={<Logout/>} />
-            <Route path='/register' element={<Register/>} />
-            <Route path='/offer-seat' element={<OfferSeat onCreateSeatSubmit={onCreateSeatSubmit}/>} />
-            <Route path='/catalogue' element={<Catalogue seats={seats}/>} />
-            <Route path='/catalogue/:seatId' element={<Details />} />
-            <Route path='/catalogue/:seatId/edit' element={<Edit onSeatEditSubmit={onSeatEditSubmit} />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <SeatProvider>
+        <div id="box">
+          <Header />
+          <main id="main-content">
+            <Routes>
+              <Route path='/' element={<Home/>} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register/>} />
+              <Route path='/catalogue' element={<Catalogue/>} />
+              <Route path='/catalogue/:seatId' element={<Details />} />
+              
+              <Route element = {<RouteGuard/>}>
+                <Route path='/catalogue/:seatId/edit' element={
+                  <SeatOwner>
+                    <Edit />
+                  </SeatOwner>
+                } />
+                <Route path='/offer-seat' element={<OfferSeat />} />
+                <Route path='/logout' element={<Logout/>} />
+              </Route>
+              
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </SeatProvider>
     </AuthProvider>
   );
 }
