@@ -91,7 +91,7 @@ export const Details = () =>{
                         <h5 style={{color:'white'}}>Information about the seat</h5>
                         
                         <textarea className="lead"
-                            disabled value={seat.description} >Wishing you a safe journey and a relaxing vacation when you arrive!</textarea>
+                            disabled value={seat.description} placeholder='Wishing you a safe journey and a relaxing vacation when you arrive!'/>
                         {/* <p>{seat.description}</p> */}
                         <h5 style={{color:'white'}}>Price: {seat.price} BGN</h5>
                         {seat._ownerId === userId && (

@@ -67,7 +67,7 @@ export const Edit = () => {
                 <div className="form-group">
                     <label htmlFor="description" style={{color:'orange'}}>Description</label>
                     <textarea className="form-control" id="description"  placeholder="Information about the seat" name="description"
-                    value={values.description} onChange={changeHandler}></textarea>
+                    value={values.description} onChange={changeHandler} />
                 </div>
                 
 

@@ -33,7 +33,7 @@ export const SeatProvider = ({
         const result = await seatService.edit(values._id, values);
         //TODO change state
         setSeats(state => state.map(x => x._id === values._id ? result : x))
-        navigate(`/catalogue/${values._id}`);
+        navigate(`/catalogue/${values._id}`);// /catalogue
     }
 
     const deleteSeat = (seatId) =>{

@@ -2,7 +2,7 @@ export const Footer = () =>{
     
     return(
         <div >
-            All rigths reserved &copy;
+            Designed by DAN4O &copy;
         </div>
     )
 }
