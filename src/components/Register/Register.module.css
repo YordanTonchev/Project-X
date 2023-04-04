@@ -1,0 +1,26 @@
+.section{
+    background-image: url("../../../public/images/volkswagen-touran-family-trip-1920x774px.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+    /* margin-top: 50px;
+    border: 2px black solid; */
+}
+.section h1{
+    color: white;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+}
+.register form{
+    width: 25%;
+}
+.register label, p, a{
+    color: white;
+}
+.register button{
+    background-color: orange;
+}
+
+
+

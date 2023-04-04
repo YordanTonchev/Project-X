@@ -1,0 +1,31 @@
+#offerSeat{
+    background-image: url("../../../public/images/Euro-NCAP-to-include-system-to-detect-of-minors.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+    /* margintop: '50px', */
+    /* border: '2px black solid', */
+}
+.createForm{
+    width: 25%; 
+    margin-left: 1000px;
+}
+.createForm h1{
+    text-align: center;
+    color: orange;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+}
+.createForm label{
+    text-align: center;
+    color: orange;
+   
+}
+.createForm button{
+    background-color: orange;
+    margin-left: 150px; 
+    margin-top: 10px;
+}
+
+

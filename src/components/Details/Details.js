@@ -1,3 +1,4 @@
+import styles from './Details.module.css'
 import { useEffect, useState} from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
@@ -5,7 +6,7 @@ import {seatServiceFactory} from '../../services/seatService';
 import * as commentService from '../../services/commentService'
 import { useService } from "../../hooks/useService";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { useForm } from "../../hooks/useForm";
+
 import { AddComment } from "./AddComment/AddComment";
 import { useSeatContext } from "../../contexts/SeatContex";
 
@@ -14,9 +15,6 @@ export const Details = () =>{
     const {userId, isAuthenticated, userEmail} = useAuthContext();
     const {deleteSeat} = useSeatContext();
     const [seat, setSeat] = useState({});
-    const {} = useForm({
-        comment: ''
-    })
     const seatService = useService(seatServiceFactory);
     const navigate = useNavigate();
 
@@ -24,7 +22,7 @@ export const Details = () =>{
     useEffect(() => {
         Promise.all([
             seatService.getOne(seatId),
-            commentService.getAll(seatId)
+            commentService.getAll(seatId),
         ]).then(([seatData, comments]) => {
                 setSeat({
                     ...seatData,
@@ -34,91 +32,65 @@ export const Details = () =>{
     }, [seatId]);
 
     const onCommentSubmit = async (values) => {
-        
         const response = await commentService.create(seatId, values.comment);
         
         setSeat(state => ({
             ...state,
             comments:[
                 ...state.comments, 
-                {
-                    ...response,
-                    author:{
-                        userEmail,
-                    }
-                }
+                {...response, author:{email:userEmail,}}
             ],
-        }))
-        // setSeat(state => ({...state, comments: {...state.comments, [result._id]: result} }));
-        // setUsername('');
-        // setComment('');
-    }
+        }));
+    };
 
 
     const onDeleteClick = async () => {
         //eslint-disable-next-line no-restricted-globals
-        const result = confirm(`Are you sure you want to delete ${seat.brand}`)//option
+        const result = confirm(`Are you sure you want to delete ${seat.brand}`)//confirm option
         if(result){
-            await seatService.delete(seat._id);
-            deleteSeat(seat._id);
+            await seatService.delete(seat._id);//1 step delete from server
+            deleteSeat(seat._id);//2 step delete from state
 
-            navigate('/catalogue');
+            navigate('/catalogue');//3 step navigate to
         }
         
     };
-    const styles = {
-        backgroundImage: 'url("https://cdn-prod.medicalnewstoday.com/content/images/articles/327/327330/a-kid-who-is-not-allowed-to-sit-in-the-front-seat-because-she-is-too-young.jpg")',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        minHeight: '100vh',
-        margintop: '50px',
-        border: '2px black solid'
-    };
+    
 
     
     return(
-        <section className="py-5 details" id="seat-details-page" style={styles}>
-            <div className="container" style={{marginLeft:'300px', width:'25%'}}> 
-                
-                <h5 className="brand" style={{color:'white'}}>Seat Brand: {seat.brand}</h5>
-                
-                <div className="seat-info" >
-                    <div>
-                        <img className="img-fluid rounded" src={seat.image} alt="" />
-                    </div>
-                    <div className="seat-desc" >
-                        <h5 style={{color:'white'}}>Information about the seat</h5>
-                        
-                        <textarea className="lead"
-                            disabled value={seat.description} placeholder='Wishing you a safe journey and a relaxing vacation when you arrive!'/>
-                        {/* <p>{seat.description}</p> */}
-                        <h5 style={{color:'white'}}>Price: {seat.price} BGN</h5>
-                        {seat._ownerId === userId && (
+        <section className="py-5 details" id={styles.seatDetails}>
+            <div className="container" id={styles.container} > 
+                <div className={styles.seatInfo} >
+                    <h5 className="brand" >Seat Brand: {seat.brand}</h5>
+                    <img className="img-fluid rounded" src={seat.image} alt="" />
+                    <h5 >Seat description</h5>
+                    <textarea className="lead"
+                        disabled value={seat.description} placeholder='Wishing you a safe journey and a relaxing vacation when you arrive!'/>
+                    <h5>Price: {seat.price} BGN</h5>
+                    {seat._ownerId === userId && (
                             <div className="actions">
                             {/* <!-- Only for logged user and creator to this seat --> */}
                             <button className="btn btn-danger" onClick={onDeleteClick}>Delete this seat</button>
                             <Link to={`/catalogue/${seat._id}/edit`} className="btn btn-warning">Edit this seat</Link>
                             </div>
-                        )}
-                        <div className="details-comments">
-                            <h2>Comments:</h2>
-                            <ul style={{width: '100%' ,border:'solid 2px orange', padding:'0', margin:'0' ,display:'block' ,listStyle:'none', color: 'white'}}>
-                                {seat.comments && seat.comments.map(x => (
-                                    <li key={x._id} >
-                                        <p>{x.author.email}: {x.comment}</p>
-                                    </li> 
-                                ))}    
-                            </ul>
-                            {!seat.comments?.length && (
-                                <p>Sorry no comments.</p>
-                            )}
-                        </div>
-                        
-                        
-                        {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit}/>}
-                    </div>
+                    )}
                 </div>
+                <div className={styles.detailsComments}>
+                    <h2>Comments:</h2>
+                    <ul>
+                        {seat.comments && seat.comments.map(x => (
+                            <li key={x._id} className='comment'>
+                                <p>{x.author.email}: {x.comment}</p>
+                            </li> 
+                        ))}    
+                    </ul>
+                    {!seat.comments?.length && (
+                        <p className='no-comment'>Sorry no comments.</p>
+                    )}
+                    {isAuthenticated && <AddComment onCommentSubmit={onCommentSubmit}/>}
+                </div>
+                      
             </div>
         </section>
     );

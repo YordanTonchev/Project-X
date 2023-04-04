@@ -1,0 +1,42 @@
+.headerPage{
+    display: flex;
+}
+.catalogue{
+    border: 1px solid pink; 
+    border-radius: 20px;
+}
+.offerSeat{
+    border: 1px solid pink;
+    border-radius: 20px; 
+    margin-right: 20px;
+    
+}
+.logout{
+    border: 1px solid pink; 
+    border-radius: 20px;
+}
+.login{
+    border: 1px solid pink; 
+    border-radius: 20px;
+    margin-right: 20px;
+    
+}
+.register{
+    border: 1px solid pink; 
+    border-radius: 20px;
+    
+}
+
+.isNotAuthenticated{
+    display: flex; 
+    margin-left: 20px;
+}
+.isAuthenticated{
+    display: flex; 
+    align-items: center;
+}
+.userEmail{
+    margin-right: 20px;
+    margin-left: 20px;
+}
+

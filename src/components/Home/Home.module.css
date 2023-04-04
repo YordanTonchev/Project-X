@@ -1,0 +1,26 @@
+.homePage{
+    
+    background-image: url("../../../public/images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+    min-height: 100vh;
+}
+.mainDiv{
+    width:50%;
+    margin-left: 380px; 
+    color: pink;
+    text-align: center; 
+    border-radius: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.mainDiv p{
+    font-size: 35px;
+    color: plum;
+    
+}
+.mainDiv h1{
+    font-size: 65px;
+    text-decoration: underline;
+    
+}

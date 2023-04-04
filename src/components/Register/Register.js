@@ -1,3 +1,4 @@
+import styles from './Register.module.css'
 import { Link } from "react-router-dom";
 
 import { useContext } from "react";
@@ -12,41 +13,33 @@ export const Register = () =>{
         password:'',
         rePassword: '',
     }, onRegisterSubmit);
-    const styles = {
-        backgroundImage: 'url("https://www.evanshalshaw.com/-/media/evanshalshaw/blog/used-cars-that-can-fit-3-child-seats-in-the-back/volkswagen-touran-family-trip-1920x774px.ashx")',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
-        minHeight: '100vh',
-        margintop: '50px',
-        border: '2px black solid'
-    };
+    
 
     return(
-        <section className="py-5" id="register-page" style={styles}>
-            <div className="container register-page" style={{marginLeft: '140px'}}>
-                <h1 style={{color:'white'}}>Register</h1>
-                <div className="register">
-                    <form id="register" method="post" onSubmit={onSubmit} style={{width:'25%'}}>
+        <section className={styles.section} id="register-page">
+            <div className="container register-page"  style={{marginLeft: '140px'}}>
+                <h1 >Register</h1>
+                <div className={styles.register}>
+                    <form id="register" method="post" onSubmit={onSubmit} >
                         <div className="form-group">
-                            <label htmlFor="email" style={{color:'white'}}>Email address</label>
+                            <label htmlFor="email" >Email address</label>
                             <input type="text" className="form-control" id="email" placeholder="Enter email" name="email"
                                 value={values.emial} onChange={changeHandler}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password" style={{color:'white'}}>Password</label>
+                            <label htmlFor="password" >Password</label>
                             <input type="password" className="form-control" id="password" placeholder="Password" name="password"
                                 value={values.password} onChange={changeHandler}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="rePassword" style={{color:'white'}}>Re-Password</label>
+                            <label htmlFor="rePassword">Re-Password</label>
                             <input type="password" className="form-control" id="rePassword" placeholder="Re-Password"
                                 name="rePassword" value={values.rePassword} onChange={changeHandler} />
                         </div>
                         <div className="form-group">
-                            <p style={{color:'white'}}>Already have account? <Link to="/Login" style={{color:'white'}}>Login Now!</Link></p>
+                            <p >Already have account? <Link to="/Login" >Login Now!</Link></p>
                         </div>
-                        <button type="submit" className="btn btn-primary" style={{backgroundColor:'orange'}}>Submit</button>
+                        <button type="submit" className="btn btn-primary" >Submit</button>
                     </form>
                 </div>
             </div>

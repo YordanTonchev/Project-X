@@ -1,3 +1,4 @@
+import styles from './Header.module.css'
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,26 +11,26 @@ export const Header = () => {
   return(
     <header>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
-            <div className="container-fluid"> 
+            <div className={styles.headerPage}> 
                 <Link className="navbar-brand" to="/">Home</Link>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{display: "flex"}}>
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         {/* <!-- Guest users and Logged users --> */}
                         
-                        <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px'}}>
+                        <li className={styles.catalogue}>
                         <Link className="nav-link" to="/catalogue">Catalogue</Link>
                         </li>
 
                         {/* <!-- Logged users --> */}
                         {isAuthenticated && (
-                            <div style={{display: "flex", alignItems:"center"}}>
-                                <span style={{marginRight:"20px", marginLeft:"20px"}}>{userEmail}</span>
+                            <div className={styles.isAuthenticated}>
+                                <span className={styles.userEmail}>{userEmail}</span>
 
-                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px', marginRight:"20px"}}>
+                                <li className={styles.offerSeat}>
                                 <Link className="nav-link" to="/offer-seat">Offer seat</Link>
                                 </li>
                                 
-                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px'}}>
+                                <li className={styles.logout}>
                                 <Link className="nav-link" to="/logout">Logout</Link>
                                 </li>
                                 
@@ -38,11 +39,11 @@ export const Header = () => {
                         
                         {/* <!-- Guest users --> */}
                         {!isAuthenticated &&(
-                            <div style={{display: "flex", marginLeft:"20px"}}>
-                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px', marginRight:"20px"}}>
+                            <div className={styles.isNotAuthenticated}>
+                                <li className={styles.login} >
                                 <Link className="nav-link" to="/login">Login</Link>
                                 </li>
-                                <li className="nav-item" style={{border:'1px solid pink', borderRadius:'20px'}}>
+                                <li className={styles.register} >
                                 <Link className="nav-link" to="/register">Register</Link>
                                 </li> 
                             </div>

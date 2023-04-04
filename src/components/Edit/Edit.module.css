@@ -1,0 +1,26 @@
+#editPage{
+    background-image: url("../../../public/images/ChildPresenceDetectionSystem\(CPD\)_top-thumb-4838x2396-7361.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+}
+.editForm{
+    width: 25%; 
+    margin-left: 1000px;
+}
+.editForm h1{
+    text-align: center;
+    color: orange;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+}
+.editForm label{
+    text-align: center;
+    color: orange;
+}
+.editForm button{
+    background-color: orange;
+    margin-left: 150px; 
+    margin-top: 10px;
+}

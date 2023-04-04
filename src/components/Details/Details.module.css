@@ -1,0 +1,48 @@
+#seatDetails{
+    background-image: url("../../../public/images/a-kid-who-is-not-allowed-to-sit-in-the-front-seat-because-she-is-too-young.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 100vh;
+}
+#container{
+    margin-left: 100px;
+    width: 35%;
+    display: flex;
+    border: 5px solid cornsilk;
+    border-radius: 10px;
+    padding: 10px;
+}
+.detailsComments{
+    padding-left: 10px;
+}
+.detailsComments h2{
+    color: white;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+.detailsComments ul{
+    width: 100%;
+    border: solid 2px orange; 
+    padding: 0; 
+    margin: 0;
+    display: block;
+    list-style: none; 
+}
+.detailsComments p{
+    color: blue;
+}
+.seatInfo h5{
+    color: white;
+}
+.seatInfo img{
+    width: 85%;
+}
+.seatInfo button{
+    width: 70%;
+}
+.seatInfo a{
+    margin-top: 10px;
+    width: 70%;
+}

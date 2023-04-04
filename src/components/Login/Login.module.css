@@ -1,0 +1,30 @@
+.auth{
+   
+        background-image: url("../../../public/images/recaro-bg-carseats-desk-161122.webp");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        min-height: 100vh;
+        
+}
+.form{
+    width: 18%; 
+    margin-left: 300px; 
+    border: 2px pink solid; 
+    border-radius: 10px; 
+    padding: 10px;
+    
+}
+.form h1{
+    color: gray; 
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+}
+.form label{
+    color: #0a58ca;
+}
+.form p{
+    color: #0a58ca;
+}
+
