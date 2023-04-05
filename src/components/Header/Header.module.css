@@ -1,32 +1,62 @@
 .headerPage{
     display: flex;
 }
+
+/* .headerPage Link:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+} */
 .catalogue{
     border: 1px solid pink; 
     border-radius: 20px;
 }
+.catalogue:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
 .offerSeat{
     border: 1px solid pink;
     border-radius: 20px; 
-    margin-right: 20px;
-    
+    margin-right: 20px; 
 }
+.offerSeat:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
 .logout{
     border: 1px solid pink; 
     border-radius: 20px;
 }
+.logout:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
 .login{
     border: 1px solid pink; 
     border-radius: 20px;
     margin-right: 20px;
-    
 }
-.register{
-    border: 1px solid pink; 
-    border-radius: 20px;
-    
+.login:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+.register{
+    border: 1px solid pink; 
+    border-radius: 20px; 
+}
+.register:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.clock{
+    margin-left: 10px;
+    margin-top: 20px;
+}
 .isNotAuthenticated{
     display: flex; 
     margin-left: 20px;
@@ -35,8 +65,13 @@
     display: flex; 
     align-items: center;
 }
+
 .userEmail{
     margin-right: 20px;
     margin-left: 20px;
 }
+/* .userEmail:hover{
+    background-color: greenyellow;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+} */
 

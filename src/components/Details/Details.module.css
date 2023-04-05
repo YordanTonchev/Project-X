@@ -42,7 +42,15 @@
 .seatInfo button{
     width: 70%;
 }
+.seatInfo button:hover{
+    background-color: blue;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
 .seatInfo a{
     margin-top: 10px;
     width: 70%;
+}
+.seatInfo a:hover{
+    background-color: blue;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
 }

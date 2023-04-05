@@ -1,4 +1,5 @@
 import styles from './Header.module.css'
+import {Clock} from "../ClockAndWeather/ClockAndWeather"
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
@@ -51,6 +52,9 @@ export const Header = () => {
                         
                     </ul> 
                 </div>
+            </div>
+            <div className={styles.clock}>
+                    <Clock/>
             </div>
         </nav> 
     </header> 
