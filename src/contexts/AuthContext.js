@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { toast } from 'react-toastify';
 
 import {authServiceFactory} from '../services/authService';
 //expose context
@@ -25,7 +26,9 @@ export const AuthProvider = ({
           navigate('/catalogue')
         }catch(error){
           //to do show on screen
-          console.log('There is something wrong with your email or password')
+          // console.log('There is something wrong with your email or password')
+          toast.error('There is something wrong with your email or password')
+          
         }
         
     };
@@ -45,7 +48,8 @@ export const AuthProvider = ({
       navigate('/catalogue')
     }catch(error){
       //to do show on screen
-      console.log('There is something wrong')
+      // console.log('There is something wrong')
+      toast.error('There is something wrong with your registration');
     }
     };
     const onLogout = async () => {

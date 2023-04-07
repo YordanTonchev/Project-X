@@ -2,6 +2,10 @@ import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext';
 import { SeatProvider } from './contexts/SeatContex';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import { Catalogue } from "./components/Catalogue/Catalogue";
 import { OfferSeat } from "./components/OfferSeat/OfferSeat";
 import { Details } from "./components/Details/Details";
@@ -22,6 +26,7 @@ function App() {
     <AuthProvider>
       <SeatProvider>
         <div id="box">
+          <ToastContainer />
           <Header />
           <main id="main-content">
             <Routes>

@@ -11,7 +11,7 @@ export const Header = () => {
 
   return(
     <header>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary" >
             <div className={styles.headerPage}> 
                 <Link className="navbar-brand" to="/">Home</Link>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">

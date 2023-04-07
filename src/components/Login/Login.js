@@ -26,7 +26,7 @@ export const Login = () => {
                 <div className="form-outline mb-4">
 
                     <label className="form-label" htmlFor="email" >Email address</label>
-                    <input type="email" id="email" className="form-control" name={LoginFormKeys.Email} placeholder="softuni@gamil.com" value={values[LoginFormKeys.Email]} onChange={changeHandler} />
+                    <input type="email" id="email" className="form-control" name={LoginFormKeys.Email} placeholder="softuni@gamil.com" value={values[LoginFormKeys.Email]} onChange={changeHandler} required/>
                     
                 </div>
 
@@ -34,7 +34,7 @@ export const Login = () => {
                 <div className="form-outline mb-4">
                     
                     <label className="form-label" htmlFor="form2Example2" >Password</label>
-                    <input type="password" id="form2Example2" className="form-control" name={LoginFormKeys.Password} value={values[LoginFormKeys.Password]} onChange={changeHandler} />
+                    <input type="password" id="form2Example2" className="form-control" name={LoginFormKeys.Password} value={values[LoginFormKeys.Password]} onChange={changeHandler} required/>
                     
                 </div>
                 <input type="submit" className="btn btn-primary btn-block mb-4 submit" value="Login" />

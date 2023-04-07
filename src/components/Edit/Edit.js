@@ -63,7 +63,7 @@ export const Edit = () => {
                 </div>
                 
 
-                <button type="submit" className="btn btn-primary" >Submit</button>
+                <button type="submit" className="btn btn-primary" >Edit</button>
             </form>
         </section>
 
